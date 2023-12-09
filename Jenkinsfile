@@ -42,12 +42,20 @@ pipeline {
     post {
         success {
             echo 'Pipeline succeeded! Sending notifications...'
-            // Add post-build success actions (e.g., notifications)
+            emailext (
+                to: 'harshadazurungedevops@gmail.com', // Replace with the target email address
+                subject: "Jenkins Pipeline Success - ${params.ENVIRONMENT}",
+                body: "Your Jenkins pipeline has succeeded for environment: ${params.ENVIRONMENT}"
+            )
         }
 
         failure {
             echo 'Pipeline failed! Sending notifications...'
-            // Add post-build failure actions (e.g., notifications)
+            emailext (
+                to: 'harshadazurungedevops@gmail.com', // Replace with the target email address
+                subject: "Jenkins Pipeline Failure - ${params.ENVIRONMENT}",
+                body: "Your Jenkins pipeline has failed for environment: ${params.ENVIRONMENT}"
+            )
         }
 
         always {
